@@ -5,16 +5,17 @@ import java.awt.event.*;
 
 public class Square extends JPanel
 {
-    int x,y;
+    int index;
+    int times=0;
 
-    public void setx(int a)
+    public void setIndex(int x)
     {
-        x=a;
+        index=x;
     }
 
-    public void sety(int b)
+    public int getIndex()
     {
-        y=b;
+        return index;
     }
 
     JButton block= new JButton();
@@ -48,8 +49,9 @@ public class Square extends JPanel
        if ((((a+1)%2==0) && !((b+1)%2==0)))
         this.setKey(white);
         
-        this.setx(a+1);
-        this.sety(b+1);
+        this.setIndex(times);
+        times++;
+       
 
     }
 
