@@ -5,8 +5,14 @@ import java.awt.event.*;
 
 public class Square extends JPanel
 {
-    int index;
-    int times=0;
+    
+    int index;    
+    String cont;    
+
+    public void setcont(String c)
+    {
+        cont=c;
+    }
 
     public void setIndex(int x)
     {
@@ -31,27 +37,18 @@ public class Square extends JPanel
     
     }
 
-    ImageIcon black = new ImageIcon("empty2.png");
-    ImageIcon white = new ImageIcon("empty.png");
-        
+    ImageIcon blacks = new ImageIcon("empty2.png");
+    ImageIcon whites = new ImageIcon("empty.png");         
 
-    public Square(int a, int b)
+    public Square(int a, String c,String b)
     {
-       if ((((a+1)%2==0) && ((b+1)%2==0)))
-        this.setKey(black);
-      
-       if ((!((a+1)%2==0) && !((b+1)%2==0)))
-        this.setKey(black);
-
-       if ((!((a+1)%2==0) && ((b+1)%2==0)))
-        this.setKey(white);
-
-       if ((((a+1)%2==0) && !((b+1)%2==0)))
-        this.setKey(white);
-        
-        this.setIndex(times);
-        times++;
-       
+       if(c=="blacks")
+        this.setKey(blacks);
+       else 
+        this.setKey(whites);
+                
+        this.setIndex(a);
+        this.setcont(b);              
 
     }
 
