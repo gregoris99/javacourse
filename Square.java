@@ -3,16 +3,39 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Square extends JPanel
+public class Square 
 {
+    //USED TO MAKE BUTTONS
+
+    JButton block= new JButton();
+    ImageIcon blacks = new ImageIcon("empty2.png");
+    ImageIcon whites = new ImageIcon("empty.png"); 
     
+    //INSTANCE VARIABLES
+
     int index;    
-    String cont;    
+    String cont;
+    String backgroundcolor;
+
+    public void setbackground(String c)
+    {
+        backgroundcolor=c;
+    }
+
+    public String getbackgroung()
+    {
+        return backgroundcolor;
+    }   
+
+    public String getCont()
+    {
+        return cont;
+    }    
 
     public void setcont(String c)
     {
         cont=c;
-    }
+    }    
 
     public void setIndex(int x)
     {
@@ -22,9 +45,7 @@ public class Square extends JPanel
     public int getIndex()
     {
         return index;
-    }
-
-    JButton block= new JButton();
+    }   
 
     public void setKey(ImageIcon c)
     {
@@ -33,12 +54,10 @@ public class Square extends JPanel
 
     public JButton getBlock()
     {
-        return block;
-    
-    }
+        return block;    
+    }          
 
-    ImageIcon blacks = new ImageIcon("empty2.png");
-    ImageIcon whites = new ImageIcon("empty.png");         
+    //CONSTRUCTOR
 
     public Square(int a, String c,String b)
     {
@@ -48,10 +67,10 @@ public class Square extends JPanel
         this.setKey(whites);
                 
         this.setIndex(a);
-        this.setcont(b);              
+        this.setcont(b);    
+        this.setbackground(c);   
 
     }
-
 
     public static void main(String[] args)
     {
