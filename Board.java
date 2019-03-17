@@ -15,9 +15,14 @@ public class Board implements ActionListener
 
      Square[] squares = new Square[65]; 
 
+     public Square getSquares(int a)
+     {
+       return squares[a];
+     }
+
      //2D ARRAY OF BUTTONS
 
-     JButton[][] blocks= new JButton[65][2];   
+     JButton[][] blocks= new JButton[65][2];
 
     public void setSelected(JButton x)
     {
@@ -91,59 +96,63 @@ public class Board implements ActionListener
     //ACTION PERFORMED (HIGHLIGHTING VALID MOVES)
 
     public void actionPerformed(ActionEvent e)
-    {
+    {    
+ 
       for (int x=1; x<65; x++)
        if (e.getSource()==blocks[x][1])
        {
-          String color = squares[x].getCont();
 
-          String maybeMove= squares[x+7].getCont();
-          String background=squares[x+7].getbackgroung();
-          String maybeMove2= squares[x+9].getCont();
-          String background2=squares[x+9].getbackgroung();
+        String color = squares[x].getCont();
 
+        String maybeMove= squares[x+7].getCont();
+        String background=squares[x+7].getbackgroung();
+        String maybeMove2= squares[x+9].getCont();
+        String background2=squares[x+9].getbackgroung();
 
-          if (color=="red")
+        if (color=="red")
+        {
+
+        if (!(x%8==1))
+          if(((maybeMove=="white") || (maybeMove=="none") && !(background=="black")))
           {
-
-          if (!(x%8==1))
-            if(((maybeMove=="white") || (maybeMove=="none") && !(background=="black")))
-            {
-              blocks[x+7][1].setIcon(valid);
-            }
-
-          if (!(x%8==0))   
-            if(((maybeMove2=="white") || (maybeMove2=="none") && !(background2=="black")))
-            {
-              blocks[x+9][1].setIcon(valid);
-            }
-
+            blocks[x+7][1].setIcon(valid);
           }
 
-          String MaybeMove= squares[x-7].getCont();
-          String Background=squares[x-7].getbackgroung();
-          String MaybeMove2= squares[x-9].getCont();
-          String Background2=squares[x-9].getbackgroung();
-
-          if (color=="white")
+        if (!(x%8==0))   
+          if(((maybeMove2=="white") || (maybeMove2=="none") && !(background2=="black")))
           {
-
-           if (!(x%8==0)) 
-            if(((MaybeMove=="red") || (MaybeMove=="none") && !(Background=="black")))
-            {
-              blocks[x-7][1].setIcon(valid);
-            }
-
-           if (!(x%8==1))   
-            if(((MaybeMove2=="red") || (MaybeMove2=="none") && !(Background2=="black")))
-            {
-              blocks[x-9][1].setIcon(valid);
-            }               
-
+            blocks[x+9][1].setIcon(valid);
           }
-       }      
-    }
-      
+
+        }
+
+        String MaybeMove= squares[x-7].getCont();
+        String Background=squares[x-7].getbackgroung();
+        String MaybeMove2= squares[x-9].getCont();
+        String Background2=squares[x-9].getbackgroung();
+
+        if (color=="white")
+        {
+
+         if (!(x%8==0)) 
+          if(((MaybeMove=="red") || (MaybeMove=="none") && !(Background=="black")))
+          {
+            blocks[x-7][1].setIcon(valid);
+          }
+
+         if (!(x%8==1))   
+          if(((MaybeMove2=="red") || (MaybeMove2=="none") && !(Background2=="black")))
+          {
+            blocks[x-9][1].setIcon(valid);
+          }               
+
+        }
+           
+       }
+       
+    }         
+
+
     public static void main(String[] args)
     {
         Board b = new Board();
