@@ -80,27 +80,17 @@ public class Square
 
     public boolean canMoveTo(Square examinedSquare)
     {
-        boolean able=false;       
+        boolean able=false;      
       
-    if (examinedSquare.getContains()=="none") 
-     {    
+    if ( (contains=="white") && (examinedSquare.getContains()=="none") && (examinedSquare.getBackgroundColor()=="whites") && ((examinedSquare.getLocation()==(location-7)) || (examinedSquare.getLocation()==(location-9))))
+        able=true;
 
-        if(examinedSquare.getBackgroundColor()=="whites")
-        {    
+    if ( (contains=="red") && (examinedSquare.getContains()=="none") && (examinedSquare.getBackgroundColor()=="whites") && ((examinedSquare.getLocation()==(location+7)) || (examinedSquare.getLocation()==(location+9))))
+        able=true;            
 
-         if (this.getContains()=="white") 
-          if ((examinedSquare.getLocation()==(location-7)) || (examinedSquare.getLocation()==(location-9)))
-          able=true;
-          
-         if (this.getContains()=="red")
-          if ((examinedSquare.getLocation()==(location+7)) || (examinedSquare.getLocation()==(location+9)))
-          able=true; 
-        }
-
-     }
-
-       return able;
-    }
+     return able;
+     
+    }  
 
     //CONSTRUCTOR
 

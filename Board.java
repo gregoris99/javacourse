@@ -82,47 +82,18 @@ public class Board implements ActionListener
      if (isItFirstclick==true) 
      {  
       for (x=1; x<65; x++)
-       if (e.getSource()==Squares[x].getButton())
-       {
-
-         if (Squares[x].getContains()=="white") 
-         {
-           if((x%8==0) && (Squares[x-9].getContains()=="none") && (Squares[x-9].getBackgroundColor()=="whites"))            
-             Squares[x-9].getButton().setIcon(valid);
-           else
-           if((x%8==1) && (Squares[x-7].getContains()=="none") && (Squares[x-7].getBackgroundColor()=="whites"))            
-            Squares[x-7].getButton().setIcon(valid);
-
-           else  
-           
-            if((Squares[x-9].getContains()=="none") && (Squares[x-9].getBackgroundColor()=="whites"))                    
-             Squares[x-9].getButton().setIcon(valid);   
-
-            if((Squares[x-7].getContains()=="none") && (Squares[x-7].getBackgroundColor()=="whites"))
-             Squares[x-7].getButton().setIcon(valid);             
-          }
-
-
-          if (Squares[x].getContains()=="red")
-         {
-           if((x%8==0) && (Squares[x+7].getContains()=="none") && (Squares[x+7].getBackgroundColor()=="whites"))           
-            Squares[x+7].getButton().setIcon(valid);
-           else
-           if((x%8==1) && (Squares[x+9].getContains()=="none") && (Squares[x+9].getBackgroundColor()=="whites"))           
-            Squares[x+9].getButton().setIcon(valid);
-
-           else  
-           
-            if((Squares[x+9].getContains()=="none") && (Squares[x+9].getBackgroundColor()=="whites"))             
-             Squares[x+9].getButton().setIcon(valid);  
-
-            if((Squares[x+7].getContains()=="none") && (Squares[x+7].getBackgroundColor()=="whites"))   
-             Squares[x+7].getButton().setIcon(valid);            
-           
-          }  
+       if (e.getSource()==Squares[x].getButton())       
+       {           
          
-        isItFirstclick=false;        
-        break;
+        isItFirstclick=false; 
+
+        if(isItFirstclick==false)        
+         for (int n=1;n<65;n++)
+          if(Squares[x].canMoveTo(Squares[n])==true)
+          Squares[n].getButton().setIcon(valid);
+
+        break;            
+
         }
      }
 
