@@ -12,16 +12,17 @@ public class Square
     ImageIcon whites = new ImageIcon("empty.png"); 
     ImageIcon red = new ImageIcon("red.png");
     ImageIcon white = new ImageIcon("white.png");
-    ImageIcon valid = new ImageIcon("selected.png");
+    
     
     //INSTANCE VARIABLES
+
     JButton button= new JButton();
 
     int location;    
     String contains;
     String BackgroundColor;   
 
-    public String getBackgroungColor()
+    public String getBackgroundColor()
     {
         return BackgroundColor;
     }   
@@ -53,8 +54,7 @@ public class Square
     {       
        
         String before=firstClick.getContains(); //before stores what was contained on the first key pressed
-
-        contains=before; //stores what is now containd on the square
+        
 
         if (before=="white")
          button.setIcon(white);
@@ -64,15 +64,43 @@ public class Square
 
          //setting the right background on the first key pressed
 
-         String retainbackground =firstClick.getBackgroungColor();
+         String retainbackground =firstClick.getBackgroundColor();
 
          if (retainbackground=="whites")
           firstClick.getButton().setIcon(whites);
         
          if(retainbackground=="blacks")
           firstClick.getButton().setIcon(blacks);
+
+        contains=before; //stores what is now containd on the square
+
+        firstClick.contains="none";
         
     } 
+
+    public boolean canMoveTo(Square examinedSquare)
+    {
+        boolean able=false;       
+      
+    if (examinedSquare.getContains()=="none") 
+     {    
+
+        if(examinedSquare.getBackgroundColor()=="whites")
+        {    
+
+         if (this.getContains()=="white") 
+          if ((examinedSquare.getLocation()==(location-7)) || (examinedSquare.getLocation()==(location-9)))
+          able=true;
+          
+         if (this.getContains()=="red")
+          if ((examinedSquare.getLocation()==(location+7)) || (examinedSquare.getLocation()==(location+9)))
+          able=true; 
+        }
+
+     }
+
+       return able;
+    }
 
     //CONSTRUCTOR
 

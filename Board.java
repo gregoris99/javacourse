@@ -1,3 +1,4 @@
+import javax.lang.model.util.ElementScanner6;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -6,16 +7,16 @@ public class Board implements ActionListener
 {
     JFrame frame = new JFrame("Java Coursework");
     JPanel panel = new JPanel();
-    GridLayout layout = new GridLayout(8, 8, 0, 0);    
+    GridLayout layout = new GridLayout(8, 8, 0, 0); 
+    
+    //USED FOR HIGHLIGHTING AND ANTI-HIGHLIGHTING
+
+    ImageIcon valid = new ImageIcon("selected.png");
+    ImageIcon whites = new ImageIcon("empty.png");
 
      //ARRAY OF SQUARE INSTANCES 
 
-     Square[] Squares = new Square[65];    
-
-     public Square[] getSquares()
-     {
-       return Squares;
-     }
+     Square[] Squares = new Square[65];       
     
     //CONSTRUCTOR
     //ADDING ACTIONLISTENERS TO ALL BUTTONS    
@@ -83,25 +84,73 @@ public class Board implements ActionListener
       for (x=1; x<65; x++)
        if (e.getSource()==Squares[x].getButton())
        {
+
+         if (Squares[x].getContains()=="white") 
+         {
+           if((x%8==0) && (Squares[x-9].getContains()=="none") && (Squares[x-9].getBackgroundColor()=="whites"))            
+             Squares[x-9].getButton().setIcon(valid);
+           else
+           if((x%8==1) && (Squares[x-7].getContains()=="none") && (Squares[x-7].getBackgroundColor()=="whites"))            
+            Squares[x-7].getButton().setIcon(valid);
+
+           else  
+           
+            if((Squares[x-9].getContains()=="none") && (Squares[x-9].getBackgroundColor()=="whites"))                    
+             Squares[x-9].getButton().setIcon(valid);   
+
+            if((Squares[x-7].getContains()=="none") && (Squares[x-7].getBackgroundColor()=="whites"))
+             Squares[x-7].getButton().setIcon(valid);             
+          }
+
+
+          if (Squares[x].getContains()=="red")
+         {
+           if((x%8==0) && (Squares[x+7].getContains()=="none") && (Squares[x+7].getBackgroundColor()=="whites"))           
+            Squares[x+7].getButton().setIcon(valid);
+           else
+           if((x%8==1) && (Squares[x+9].getContains()=="none") && (Squares[x+9].getBackgroundColor()=="whites"))           
+            Squares[x+9].getButton().setIcon(valid);
+
+           else  
+           
+            if((Squares[x+9].getContains()=="none") && (Squares[x+9].getBackgroundColor()=="whites"))             
+             Squares[x+9].getButton().setIcon(valid);  
+
+            if((Squares[x+7].getContains()=="none") && (Squares[x+7].getBackgroundColor()=="whites"))   
+             Squares[x+7].getButton().setIcon(valid);            
+           
+          }  
+         
         isItFirstclick=false;        
         break;
         }
      }
-     else      
+
+     else   
+
     /////// y stores the location for the second button pressed
      if (isItFirstclick==false)   
       for (y=1; y<65; y++)
        if (e.getSource()==Squares[y].getButton())
-      {  
-        //we want to move square x to square y        
-        Squares[y].moveTo(Squares[x]); //invokes moveTo method in Square        
-               
-        isItFirstclick=true; 
-        break;
+      {      
+        Squares[y].canMoveTo(Squares[x]);
+        
+        if(Squares[y].getButton().getIcon()==valid)
+        {        
+         Squares[y].moveTo(Squares[x]); //invokes moveTo method in Square, we want to move square x to square y 
+        
+         
+        //GET HIGHLIGHTED BUTTONS BACK TO NORMAL.
 
-      }        
-    
-
+        for(int h=1;h<65;h++)
+         if (Squares[h].getButton().getIcon()==valid)
+          Squares[h].getButton().setIcon(whites);      
+          
+          isItFirstclick=true; 
+          break;      
+        } 
+        
+      }       
   }         
 
    
