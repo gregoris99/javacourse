@@ -97,6 +97,7 @@ public class Board implements ActionListener
         Squares[y].moveTo(Squares[x]); //invokes moveTo method in Square        
                
         isItFirstclick=true; 
+        break;
 
       }        
     
