@@ -94,66 +94,48 @@ public class Board implements ActionListener
     }
 
     //ACTION PERFORMED (HIGHLIGHTING VALID MOVES)
+    
+    int xSource=0,yDest=0;   
 
+    boolean firstclick = true;
+    
     public void actionPerformed(ActionEvent e)
-    {    
- 
-      for (int x=1; x<65; x++)
-       if (e.getSource()==blocks[x][1])
-       {
-
-        String color = squares[x].getCont();
-
-        String maybeMove= squares[x+7].getCont();
-        String background=squares[x+7].getbackgroung();
-        String maybeMove2= squares[x+9].getCont();
-        String background2=squares[x+9].getbackgroung();
-
-        if (color=="red")
-        {
-
-        if (!(x%8==1))
-          if(((maybeMove=="white") || (maybeMove=="none") && !(background=="black")))
-          {
-            blocks[x+7][1].setIcon(valid);
-          }
-
-        if (!(x%8==0))   
-          if(((maybeMove2=="white") || (maybeMove2=="none") && !(background2=="black")))
-          {
-            blocks[x+9][1].setIcon(valid);
-          }
-
+    {     
+      
+     ////// x stores the location of the first button pressed 
+     if (firstclick==true) 
+     {  
+      for (xSource=1; xSource<65; xSource++)
+       if (e.getSource()==blocks[xSource][1]){
+        firstclick=false;
+        //System.out.println("first clickS x="+xSource);
+        break;
         }
+     }
+     else{   
+    /////// y stores the location for the second button pressed
+        
+      for (yDest=1; yDest<65; yDest++)
+       if (e.getSource()==blocks[yDest][1])
+      {  
+        //we want to move square x to square y
+        //System.out.println("y="+yDest+" x="+xSource);
+        squares[yDest].moveTo(squares[xSource]); //invokes moveTo method in Square
 
-        String MaybeMove= squares[x-7].getCont();
-        String Background=squares[x-7].getbackgroung();
-        String MaybeMove2= squares[x-9].getCont();
-        String Background2=squares[x-9].getbackgroung();
+        blocks[yDest][1]=squares[yDest].getBlock(); //putting the new modified key in the array   
+        blocks[xSource][1]=squares[xSource].getBlock(); //putting the new empty square in the arrayjava 
+               
+        firstclick=true;        
 
-        if (color=="white")
-        {
+      }   
+      } 
 
-         if (!(x%8==0)) 
-          if(((MaybeMove=="red") || (MaybeMove=="none") && !(Background=="black")))
-          {
-            blocks[x-7][1].setIcon(valid);
-          }
-
-         if (!(x%8==1))   
-          if(((MaybeMove2=="red") || (MaybeMove2=="none") && !(Background2=="black")))
-          {
-            blocks[x-9][1].setIcon(valid);
-          }               
-
-        }
-           
-       }
-       
-    }         
+  }         
 
 
-    public static void main(String[] args)
+   
+
+	public static void main(String[] args)
     {
         Board b = new Board();
     }

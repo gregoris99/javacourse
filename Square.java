@@ -11,6 +11,8 @@ public class Square
     JButton block= new JButton();
     ImageIcon blacks = new ImageIcon("empty2.png");
     ImageIcon whites = new ImageIcon("empty.png"); 
+    ImageIcon red = new ImageIcon("red.png");
+    ImageIcon white = new ImageIcon("white.png");
     
     //INSTANCE VARIABLES
 
@@ -75,6 +77,32 @@ public class Square
           able=true;              
 
         return able;
+    }
+
+    //This method takes as a parameter the x button and it flips it with this square
+
+    public void moveTo(Square x)
+    {       
+       
+        String before=x.getCont(); //before stores what was on the first key pressed
+
+        if (before=="white")
+         this.setKey(white);
+
+         if (before=="red")
+         this.setKey(red); 
+
+         this.setcont(before);
+
+         //setting the right background on the first key pressed
+
+         String retainbackground =x.getbackgroung();
+
+         if (retainbackground=="whites")
+          x.setKey(whites);
+         if (retainbackground=="black")
+          x.setKey(blacks);
+        
     }
 
     //CONSTRUCTOR
