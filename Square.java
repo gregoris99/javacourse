@@ -6,117 +6,93 @@ import java.awt.event.*;
 
 public class Square 
 {
-    //USED TO MAKE BUTTONS
-
-    JButton block= new JButton();
+    //IMAGES USED TO MAKE BUTTONS
+    
     ImageIcon blacks = new ImageIcon("empty2.png");
     ImageIcon whites = new ImageIcon("empty.png"); 
     ImageIcon red = new ImageIcon("red.png");
     ImageIcon white = new ImageIcon("white.png");
+    ImageIcon valid = new ImageIcon("selected.png");
     
     //INSTANCE VARIABLES
+    JButton button= new JButton();
 
-    int index;    
-    String cont;
-    String backgroundcolor;
+    int location;    
+    String contains;
+    String BackgroundColor;   
 
-    public void setbackground(String c)
+    public String getBackgroungColor()
     {
-        backgroundcolor=c;
-    }
-
-    public String getbackgroung()
-    {
-        return backgroundcolor;
+        return BackgroundColor;
     }   
 
-    public String getCont()
+    public String getContains()
     {
-        return cont;
+        return contains;
     }    
+   
 
-    public void setcont(String c)
+    public int getLocation()
     {
-        cont=c;
-    }    
-
-    public void setIndex(int x)
-    {
-        index=x;
-    }
-
-    public int getIndex()
-    {
-        return index;
+        return location;
     }   
+   
 
-    public void setKey(ImageIcon c)
+    public JButton getButton()
     {
-        block.setIcon(c);
-    }
-
-    public JButton getBlock()
-    {
-        return block;    
+        return button;    
     } 
 
-    boolean able=false;
+///////////////////////////////
 
-    public boolean canMoveTo(Square x)
-    {        
-        String cont2=x.getCont();
-        int index2=x.getIndex();
-        String background2=x.getbackgroung();       
-
-        if(cont=="white")        
-         if(((index2==(index-7))||(index2==(index-9)))&&(cont2=="none")&&(background2=="whites"))
-          able=true;  
-         
-        if(cont=="red")
-         if(((index2==(index+7))||(index2==(index+9)))&&(cont2=="none")&&(background2=="whites")) 
-          able=true;              
-
-        return able;
-    }
+    
 
     //This method takes as a parameter the x button and it flips it with this square
 
-    public void moveTo(Square x)
+    public void moveTo(Square firstClick)
     {       
        
-        String before=x.getCont(); //before stores what was on the first key pressed
+        String before=firstClick.getContains(); //before stores what was contained on the first key pressed
+
+        contains=before; //stores what is now containd on the square
 
         if (before=="white")
-         this.setKey(white);
-
-         if (before=="red")
-         this.setKey(red); 
-
-         this.setcont(before);
+         button.setIcon(white);
+        
+        if (before=="red")
+         button.setIcon(red);         
 
          //setting the right background on the first key pressed
 
-         String retainbackground =x.getbackgroung();
+         String retainbackground =firstClick.getBackgroungColor();
 
          if (retainbackground=="whites")
-          x.setKey(whites);
-         if (retainbackground=="black")
-          x.setKey(blacks);
+          firstClick.getButton().setIcon(whites);
         
-    }
+         if(retainbackground=="blacks")
+          firstClick.getButton().setIcon(blacks);
+        
+    } 
 
     //CONSTRUCTOR
 
     public Square(int a, String c,String b)
     {
-       if(c=="blacks")
-        this.setKey(blacks);
-       else 
-        this.setKey(whites);
-                
-        this.setIndex(a);
-        this.setcont(b);    
-        this.setbackground(c);   
+        location=a;
+        contains=b;   
+        BackgroundColor=c;
+
+      if(c=="blacks")
+       button.setIcon(blacks);
+
+      if((c=="whites")&&(b=="none"))
+       button.setIcon(whites);
+
+      if((c=="whites")&&(b=="white"))
+       button.setIcon(white);
+
+      if((c=="whites")&&(b=="red"))
+       button.setIcon(red);
 
     }
 

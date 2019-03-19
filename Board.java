@@ -6,31 +6,19 @@ public class Board implements ActionListener
 {
     JFrame frame = new JFrame("Java Coursework");
     JPanel panel = new JPanel();
-    GridLayout layout = new GridLayout(8, 8, 0, 0);
-    ImageIcon red = new ImageIcon("red.png");
-    ImageIcon white = new ImageIcon("white.png");
-    ImageIcon valid = new ImageIcon("selected.png");
+    GridLayout layout = new GridLayout(8, 8, 0, 0);    
 
-     //ARRAY OF INSTANCES CREATED
+     //ARRAY OF SQUARE INSTANCES 
 
-     Square[] squares = new Square[65]; 
+     Square[] Squares = new Square[65];    
 
-     public Square getSquares(int a)
+     public Square[] getSquares()
      {
-       return squares[a];
+       return Squares;
      }
-
-     //2D ARRAY OF BUTTONS
-
-     JButton[][] blocks= new JButton[65][2];
-
-    public void setSelected(JButton x)
-    {
-      x.setIcon(valid);
-    }
     
     //CONSTRUCTOR
-    //ADDING ACTIONLISTENERS TO ALL WHITE BUTTONS    
+    //ADDING ACTIONLISTENERS TO ALL BUTTONS    
 
     public Board()
     {
@@ -41,97 +29,79 @@ public class Board implements ActionListener
         frame.setVisible(true);
         panel.setLayout(layout); 
        
-        int n=1;      
-
-        //CREATING 2D BUTTONS AND ADDING THEM TO BOARD
+        int n=1;              
 
         for (int i=0; i<8; i++)
          for (int j=0; j<8; j++)
          {
             if (((((i+1)%2==0) && ((j+1)%2==0)) || (!((i+1)%2==0) && !((j+1)%2==0))))
             {            
-             squares[n] = new Square(n,"blacks","none");
-             blocks[n][0]=squares[n].getBlock();
-             blocks[n][1]=squares[n].getBlock();
-             panel.add(blocks[n][1]);
+             Squares[n] = new Square(n,"blacks","none");            
+             Squares[n].getButton().addActionListener(this);
+             panel.add(Squares[n].getButton());
              n++;             
             }                        
           else  
             if((n>24) && (n<41)  )         
             {    
-             squares[n] = new Square(n,"whites","none");
-             blocks[n][0]= squares[n].getBlock();
-             blocks[n][0].addActionListener(this);
-             blocks[n][1]= squares[n].getBlock();
-             blocks[n][1].addActionListener(this);
-             panel.add(blocks[n][1]);
-             n++;
+             Squares[n] = new Square(n,"whites","none");
+             Squares[n].getButton().addActionListener(this);
+             panel.add(Squares[n].getButton());
+             n++;     
             }
           else
             if (n<=24)
             {
-             squares[n] = new Square(n,"whites","red");
-             blocks[n][0]= squares[n].getBlock();
-             blocks[n][0].addActionListener(this);       
-             blocks[n][1]= new JButton(red);
-             blocks[n][1].addActionListener(this);
-             panel.add(blocks[n][1]);
-             n++;
-            } 
+             Squares[n] = new Square(n,"whites","red");            
+             Squares[n].getButton().addActionListener(this);
+             panel.add(Squares[n].getButton());
+             n++;                  } 
           else   
             if (n>=41)
             {
-              squares[n] = new Square(n,"whites","white");
-              blocks[n][0]= squares[n].getBlock(); 
-              blocks[n][0].addActionListener(this);             
-              blocks[n][1]= new JButton(white);
-              blocks[n][1].addActionListener(this);
-              panel.add(blocks[n][1]);
-              n++;
+              Squares[n] = new Square(n,"whites","white");
+              Squares[n].getButton().addActionListener(this);
+              panel.add(Squares[n].getButton());
+              n++;      
             }              
          }  
         frame.setVisible(true);
     }
 
-    //ACTION PERFORMED (HIGHLIGHTING VALID MOVES)
+    //ACTION PERFORMED
     
-    int xSource=0,yDest=0;   
+    int x=0,y=0;   
 
-    boolean firstclick = true;
+    boolean isItFirstclick = true;
     
     public void actionPerformed(ActionEvent e)
     {     
       
      ////// x stores the location of the first button pressed 
-     if (firstclick==true) 
+     if (isItFirstclick==true) 
      {  
-      for (xSource=1; xSource<65; xSource++)
-       if (e.getSource()==blocks[xSource][1]){
-        firstclick=false;
-        //System.out.println("first clickS x="+xSource);
+      for (x=1; x<65; x++)
+       if (e.getSource()==Squares[x].getButton())
+       {
+        isItFirstclick=false;        
         break;
         }
      }
-     else{   
+     else      
     /////// y stores the location for the second button pressed
-        
-      for (yDest=1; yDest<65; yDest++)
-       if (e.getSource()==blocks[yDest][1])
+     if (isItFirstclick==false)   
+      for (y=1; y<65; y++)
+       if (e.getSource()==Squares[y].getButton())
       {  
-        //we want to move square x to square y
-        //System.out.println("y="+yDest+" x="+xSource);
-        squares[yDest].moveTo(squares[xSource]); //invokes moveTo method in Square
-
-        blocks[yDest][1]=squares[yDest].getBlock(); //putting the new modified key in the array   
-        blocks[xSource][1]=squares[xSource].getBlock(); //putting the new empty square in the arrayjava 
+        //we want to move square x to square y        
+        Squares[y].moveTo(Squares[x]); //invokes moveTo method in Square        
                
-        firstclick=true;        
+        isItFirstclick=true; 
 
-      }   
-      } 
+      }        
+    
 
   }         
-
 
    
 
