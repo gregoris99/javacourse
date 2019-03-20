@@ -1,18 +1,16 @@
-import javax.swing.ImageIcon;
-import javax.lang.model.util.ElementScanner6;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
 
-public class Square 
-{
+import javax.swing.*;
+import javax.swing.ImageIcon;
+
+
+public class Square{
+
     //IMAGES USED TO MAKE BUTTONS
     
     ImageIcon blacks = new ImageIcon("empty2.png");
     ImageIcon whites = new ImageIcon("empty.png"); 
     ImageIcon red = new ImageIcon("red.png");
-    ImageIcon white = new ImageIcon("white.png");
-    
+    ImageIcon white = new ImageIcon("white.png");    
     
     //INSTANCE VARIABLES
 
@@ -30,28 +28,21 @@ public class Square
     public String getContains()
     {
         return contains;
-    }    
-   
+    }       
 
     public int getLocation()
     {
         return location;
-    }   
-   
+    }      
 
     public JButton getButton()
     {
         return button;    
-    } 
-
-///////////////////////////////
-
-    
+    }     
 
     //This method takes as a parameter the x button and it flips it with this square
 
-    public void moveTo(Square firstClick)
-    {       
+    public void moveTo(Square firstClick){       
        
         String before=firstClick.getContains(); //before stores what was contained on the first key pressed
         
@@ -78,24 +69,24 @@ public class Square
         
     } 
 
-    public boolean canMoveTo(Square examinedSquare)
-    {
+    public boolean canMoveTo(Square examinedSquare){
+
         boolean able=false;      
       
-    if ( (contains=="white") && (examinedSquare.getContains()=="none") && (examinedSquare.getBackgroundColor()=="whites") && ((examinedSquare.getLocation()==(location-7)) || (examinedSquare.getLocation()==(location-9))))
+    if ((contains=="white") && (examinedSquare.getContains()=="none") && (examinedSquare.getBackgroundColor()=="whites") && ((examinedSquare.getLocation()==(location-7)) || (examinedSquare.getLocation()==(location-9))))
         able=true;
 
-    if ( (contains=="red") && (examinedSquare.getContains()=="none") && (examinedSquare.getBackgroundColor()=="whites") && ((examinedSquare.getLocation()==(location+7)) || (examinedSquare.getLocation()==(location+9))))
+    if ((contains=="red") && (examinedSquare.getContains()=="none") && (examinedSquare.getBackgroundColor()=="whites") && ((examinedSquare.getLocation()==(location+7)) || (examinedSquare.getLocation()==(location+9))))
         able=true;            
 
      return able;
-     
+
     }  
 
     //CONSTRUCTOR
 
-    public Square(int a, String c,String b)
-    {
+    public Square(int a, String c,String b){
+
         location=a;
         contains=b;   
         BackgroundColor=c;
@@ -114,8 +105,7 @@ public class Square
 
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args){
 
     }
 
