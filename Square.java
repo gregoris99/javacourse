@@ -1,6 +1,12 @@
 import javax.swing.*;
 import javax.swing.ImageIcon;
 
+/**
+   * The Square class represents a square on the board.
+   * It puts a JButton on the Square.
+   * It models the button.   
+   **/      
+
 public class Square{    
     
   private ImageIcon blacks = new ImageIcon("empty2.png");

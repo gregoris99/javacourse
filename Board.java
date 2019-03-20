@@ -2,6 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+   * The Board class represents the board of the game.
+   * It models the board.
+   * It places the red and white pieces on the board.
+   * It highlights the valid moves when a piece is clicked.
+   * It moves the piece only if the move is valid. 
+   **/      
+
 public class Board implements ActionListener{
 
   private JFrame frame = new JFrame("Java Coursework");
@@ -14,7 +22,9 @@ public class Board implements ActionListener{
   private Square[] Squares = new Square[65];   
 
   /**
-   * Creates a 8x8 grid draughts board and adds red and white pieces. 
+   * Creates a Window.
+   * Creates a 8x8 grid draughts board.
+   * Adds the red and white pieces on the board. 
    * Saves each instance of Square created in Squares array.
    **/           
 
@@ -77,19 +87,12 @@ public class Board implements ActionListener{
 
     frame.setVisible(true);
 
-  }
-
-    /**
-     * This is the ActionPerformed method which invokes every time a Square is pressed.
-     * keeps tha location of the first and second Squares pressed.
-     * Highlights valid moves using method in Square class.
-     * Moves the pieces using method in Square class.
-     **/
+  }    
     
     private int x=0,y=0;   
 
     private boolean isItFirstclick = true;
-    
+  
   public void actionPerformed(ActionEvent e){          
       
      if (isItFirstclick==true){
