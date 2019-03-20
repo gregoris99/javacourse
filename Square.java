@@ -1,112 +1,141 @@
-
 import javax.swing.*;
 import javax.swing.ImageIcon;
 
-
-public class Square{
-
-    //IMAGES USED TO MAKE BUTTONS
+public class Square{    
     
-    ImageIcon blacks = new ImageIcon("empty2.png");
-    ImageIcon whites = new ImageIcon("empty.png"); 
-    ImageIcon red = new ImageIcon("red.png");
-    ImageIcon white = new ImageIcon("white.png");    
-    
-    //INSTANCE VARIABLES
+  private ImageIcon blacks = new ImageIcon("empty2.png");
+  private ImageIcon whites = new ImageIcon("empty.png"); 
+  private ImageIcon red = new ImageIcon("red.png");
+  private ImageIcon white = new ImageIcon("white.png");    
 
-    JButton button= new JButton();
+  private JButton button= new JButton();
 
-    int location;    
-    String contains;
-    String BackgroundColor;   
+  private int location;    
+  private String contains;
+  private String BackgroundColor;
+  
+  /**
+   * Returns a String containing the Background Color of the Square.
+   * @return the Background Color of the Square.
+   **/
 
-    public String getBackgroundColor()
-    {
-        return BackgroundColor;
-    }   
+  public String getBackgroundColor(){
 
-    public String getContains()
-    {
+    return BackgroundColor;
+  }
+  
+  /**
+   * Returns a String containing what is contained on the Square, red piece, white piece or nothing.
+   * @return whats is contained on the Square.
+   **/
+
+  public String getContains(){
+
         return contains;
-    }       
+  }
+  
+  /**
+   * Returns an Integer containing the location of the Square on the board.
+   * @return the location of the Square on the board.
+   **/
 
-    public int getLocation()
-    {
+  public int getLocation(){
+
         return location;
-    }      
+  }
+  
+  /**
+   * Returns a JButton containing the button of the Square.
+   * @return button on this Square.
+   **/
 
-    public JButton getButton()
-    {
+  public JButton getButton(){
+
         return button;    
-    }     
+  }
+  
+  /**
+   * Moves the Square provided as a parameter to this Square.
+   * @param firstClick the Square to be moved.
+   **/
 
-    //This method takes as a parameter the x button and it flips it with this square
-
-    public void moveTo(Square firstClick){       
+  public void moveTo(Square firstClick){       
        
-        String before=firstClick.getContains(); //before stores what was contained on the first key pressed
+    String before=firstClick.getContains(); 
+
+    if (before=="white")
+      button.setIcon(white);
         
+    if (before=="red")
+      button.setIcon(red);    
 
-        if (before=="white")
-         button.setIcon(white);
+
+    String retainbackground =firstClick.getBackgroundColor();
+
+    if (retainbackground=="whites")
+      firstClick.getButton().setIcon(whites);
         
-        if (before=="red")
-         button.setIcon(red);         
+    if(retainbackground=="blacks")
+      firstClick.getButton().setIcon(blacks);
 
-         //setting the right background on the first key pressed
+    contains=before; 
 
-         String retainbackground =firstClick.getBackgroundColor();
-
-         if (retainbackground=="whites")
-          firstClick.getButton().setIcon(whites);
+    firstClick.contains="none";
         
-         if(retainbackground=="blacks")
-          firstClick.getButton().setIcon(blacks);
+  } 
 
-        contains=before; //stores what is now containd on the square
+  /**
+   * Decides if the Square provided as a parameter can be legally moved to this Square.
+   * @return true if the Square can legally moved and false if not.
+   * @param examinedSquare Square to be moved.
+   * 
+   **/
 
-        firstClick.contains="none";
-        
-    } 
+  public boolean canMoveTo(Square examinedSquare){
 
-    public boolean canMoveTo(Square examinedSquare){
-
-        boolean able=false;      
+    boolean able=false;      
       
     if ((contains=="white") && (examinedSquare.getContains()=="none") && (examinedSquare.getBackgroundColor()=="whites") && ((examinedSquare.getLocation()==(location-7)) || (examinedSquare.getLocation()==(location-9))))
-        able=true;
+      able=true;
 
     if ((contains=="red") && (examinedSquare.getContains()=="none") && (examinedSquare.getBackgroundColor()=="whites") && ((examinedSquare.getLocation()==(location+7)) || (examinedSquare.getLocation()==(location+9))))
-        able=true;            
+      able=true;            
 
-     return able;
+    return able;
 
-    }  
+  }  
+   
+  /**
+   * Creates a Square.
+   * Puts the right ImageIcon on the button.
+   * @param loc the location of the Square in the board.
+   * @param backcol the background color of the Square.
+   * @param cont what is contained on the Square.
+   * 
+   **/
 
-    //CONSTRUCTOR
+  public Square(int loc, String backcol,String cont){
 
-    public Square(int a, String c,String b){
+    location=loc;
+    contains=cont;   
+    BackgroundColor=backcol;
 
-        location=a;
-        contains=b;   
-        BackgroundColor=c;
+    if(backcol=="blacks")
+      button.setIcon(blacks);
 
-      if(c=="blacks")
-       button.setIcon(blacks);
+    if((backcol=="whites")&&(cont=="none"))
+      button.setIcon(whites);
 
-      if((c=="whites")&&(b=="none"))
-       button.setIcon(whites);
+    if((backcol=="whites")&&(cont=="white"))
+      button.setIcon(white);
 
-      if((c=="whites")&&(b=="white"))
-       button.setIcon(white);
+    if((backcol=="whites")&&(cont=="red"))
+      button.setIcon(red);
 
-      if((c=="whites")&&(b=="red"))
-       button.setIcon(red);
+  }
 
-    }
+  public static void main(String[] args){
 
-    public static void main(String[] args){
-
-    }
+  }
 
 }

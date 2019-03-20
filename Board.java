@@ -4,126 +4,136 @@ import java.awt.event.*;
 
 public class Board implements ActionListener{
 
-    JFrame frame = new JFrame("Java Coursework");
-    JPanel panel = new JPanel();
-    GridLayout layout = new GridLayout(8, 8, 0, 0); 
+  private JFrame frame = new JFrame("Java Coursework");
+  private JPanel panel = new JPanel();
+  private GridLayout layout = new GridLayout(8, 8, 0, 0);     
     
-    //USED FOR HIGHLIGHTING AND ANTI-HIGHLIGHTING
+  private ImageIcon valid = new ImageIcon("selected.png");
+  private ImageIcon whites = new ImageIcon("empty.png");      
 
-    ImageIcon valid = new ImageIcon("selected.png");
-    ImageIcon whites = new ImageIcon("empty.png");
+  private Square[] Squares = new Square[65];   
 
-     //ARRAY OF SQUARE INSTANCES 
+  /**
+   * Creates a 8x8 grid draughts board and adds red and white pieces. 
+   * Saves each instance of Square created in Squares array.
+   **/           
 
-     Square[] Squares = new Square[65];       
-    
-    //CONSTRUCTOR
-    //ADDING ACTIONLISTENERS TO ALL BUTTONS    
-
-    public Board(){
+  private Board(){
         
-        frame.setSize(800,800);        
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
-        frame.setContentPane(panel);
-        frame.setVisible(true);
-        panel.setLayout(layout); 
+    frame.setSize(800,800);        
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
+    frame.setContentPane(panel);
+    frame.setVisible(true);
+    panel.setLayout(layout); 
        
-        int n=1;              
+    int n=1;              
 
-        for (int i=0; i<8; i++)
-         for (int j=0; j<8; j++){
+    for (int i=0; i<8; i++)
+      for (int j=0; j<8; j++){
 
-            if (((((i+1)%2==0) && ((j+1)%2==0)) || (!((i+1)%2==0) && !((j+1)%2==0)))){
+        if (((((i+1)%2==0) && ((j+1)%2==0)) || (!((i+1)%2==0) && !((j+1)%2==0)))){
 
-             Squares[n] = new Square(n,"blacks","none");            
-             Squares[n].getButton().addActionListener(this);
-             panel.add(Squares[n].getButton());
-             n++;             
-            }                        
-          else  
-            if((n>24) && (n<41)){
+          Squares[n] = new Square(n,"blacks","none");            
+          Squares[n].getButton().addActionListener(this);
+          panel.add(Squares[n].getButton());
+          n++;        
 
-             Squares[n] = new Square(n,"whites","none");
-             Squares[n].getButton().addActionListener(this);
-             panel.add(Squares[n].getButton());
-             n++;     
-            }
-          else
-            if (n<=24){
-             Squares[n] = new Square(n,"whites","red");            
-             Squares[n].getButton().addActionListener(this);
-             panel.add(Squares[n].getButton());
-             n++;                            
-            } 
-          else   
-            if (n>=41){
+        }  
 
-              Squares[n] = new Square(n,"whites","white");
-              Squares[n].getButton().addActionListener(this);
-              panel.add(Squares[n].getButton());
-              n++;      
-            }              
-         }  
-        frame.setVisible(true);
-    }
+    else  
 
-    //ACTION PERFORMED
+        if((n>24) && (n<41)){
+
+          Squares[n] = new Square(n,"whites","none");
+          Squares[n].getButton().addActionListener(this);
+          panel.add(Squares[n].getButton());
+          n++;  
+
+        }
+
+    else
+
+        if (n<=24){
+
+          Squares[n] = new Square(n,"whites","red");            
+          Squares[n].getButton().addActionListener(this);
+          panel.add(Squares[n].getButton());
+          n++;  
+
+        } 
+
+    else   
+
+        if (n>=41){
+
+          Squares[n] = new Square(n,"whites","white");
+          Squares[n].getButton().addActionListener(this);
+          panel.add(Squares[n].getButton());
+          n++;      
+
+        }  
+
+      }  
+
+    frame.setVisible(true);
+
+  }
+
+    /**
+     * This is the ActionPerformed method which invokes every time a Square is pressed.
+     * keeps tha location of the first and second Squares pressed.
+     * Highlights valid moves using method in Square class.
+     * Moves the pieces using method in Square class.
+     **/
     
-    int x=0,y=0;   
+    private int x=0,y=0;   
 
-    boolean isItFirstclick = true;
+    private boolean isItFirstclick = true;
     
-    public void actionPerformed(ActionEvent e){     
+  public void actionPerformed(ActionEvent e){          
       
-     ////// x stores the location of the first button pressed 
      if (isItFirstclick==true){
-
       for (x=1; x<65; x++)
-       if (e.getSource()==Squares[x].getButton()){               
-
-          
+       if (e.getSource()==Squares[x].getButton()){          
 
          for (int n=1;n<65;n++)
           if(Squares[x].canMoveTo(Squares[n])==true)
            Squares[n].getButton().setIcon(valid);
 
-        isItFirstclick=false;   
+         isItFirstclick=false;   
 
-        break;           
+         break;           
 
-        }
-     }
+        }      
+      }
 
-     else   
-
-    /////// y stores the location for the second button pressed
+   else  
+    
      if (isItFirstclick==false)   
       for (y=1; y<65; y++)
        if (e.getSource()==Squares[y].getButton()){        
         
         if(Squares[x].canMoveTo(Squares[y])==true){
 
-         Squares[y].moveTo(Squares[x]); //invokes moveTo method in Square, we want to move square x to square y 
-        
-         
-        //GET HIGHLIGHTED BUTTONS BACK TO NORMAL.
+          Squares[y].moveTo(Squares[x]);         
 
-        for(int h=1;h<65;h++)
-         if (Squares[h].getButton().getIcon()==valid)
-          Squares[h].getButton().setIcon(whites);      
+          for(int h=1;h<65;h++)
+            if (Squares[h].getButton().getIcon()==valid)
+             Squares[h].getButton().setIcon(whites);      
           
           isItFirstclick=true; 
           break; 
         }   
 
-        isItFirstclick=true;
-        
-      }       
+     isItFirstclick=true;   
+            
+     }         
   }          
 
 	public static void main(String[] args){
 
-        Board b = new Board();
+      Board b = new Board();
+
     }
 
 }
