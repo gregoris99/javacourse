@@ -155,7 +155,17 @@ public class Board implements ActionListener{
     
      if (isItFirstclick==false)   
       for (y=1; y<65; y++)
-       if (e.getSource()==Squares[y].getButton()){        
+       if (e.getSource()==Squares[y].getButton()){           
+        if(Squares[y].getContains()!="none"){
+
+          for(int h=1;h<65;h++)
+            if (Squares[h].getButton().getIcon()==valid)
+             Squares[h].getButton().setIcon(whites);             
+
+            isItFirstclick=true; 
+            break;   
+
+        }
         
         if(Squares[x].canMoveTo(Squares[y])==true){
 
