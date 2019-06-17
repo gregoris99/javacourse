@@ -67,7 +67,7 @@ public class Board implements ActionListener{
         if (((((i+1)%2==0) && ((j+1)%2==0)) || (!((i+1)%2==0) && !((j+1)%2==0)))){
 
           Squares[n] = new Square(n,"blacks","none");            
-          Squares[n].getButton().addActionListener(this);
+          //Squares[n].getButton().addActionListener(this);
           panel.add(Squares[n].getButton());
           n++;        
 
@@ -137,6 +137,7 @@ public class Board implements ActionListener{
   public void actionPerformed(ActionEvent e){          
       
      if (isItFirstclick==true){
+
       for (x=1; x<65; x++)
        if (e.getSource()==Squares[x].getButton()){          
 
