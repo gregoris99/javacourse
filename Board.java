@@ -14,7 +14,15 @@ public class Board implements ActionListener{
 
   private JFrame frame = new JFrame("Java Coursework");
   private JPanel panel = new JPanel();
-  private GridLayout layout = new GridLayout(8, 8, 0, 0);     
+  private JPanel panel1 = new JPanel();
+  private JPanel cards = new JPanel();
+
+  private GridLayout layout = new GridLayout(8, 8, 0, 0);  
+  private CardLayout card = new CardLayout();  
+  
+  
+  private JButton buttonPlay= new JButton("LET'S PLAY");
+
     
   private ImageIcon valid = new ImageIcon("selected.png");
   private ImageIcon whites = new ImageIcon("empty.png");      
@@ -31,10 +39,25 @@ public class Board implements ActionListener{
   private Board(){
         
     frame.setSize(800,800);        
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
-    frame.setContentPane(panel);
-    frame.setVisible(true);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
     panel.setLayout(layout); 
+    cards.setLayout(card);
+    frame.setContentPane(panel);
+    frame.setContentPane(panel1);
+    frame.setContentPane(cards);
+
+    panel1.add(buttonPlay);        
+    
+    cards.add(panel1,"first panel");
+    cards.add(panel,"second panel");
+
+    frame.setVisible(true);
+
+
+
+    
+
+    
        
     int n=1;              
 
@@ -87,11 +110,29 @@ public class Board implements ActionListener{
 
     frame.setVisible(true);
 
-  }    
+
+    //button to switch panels.
+
+    buttonPlay.addActionListener(new ActionListener(){
     
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        
+        card.next(cards);
+        
+
+      }
+    });
+    
+
+  } //here ends the constructor.    
+    
+
+
+
     private int x=0,y=0;   
 
-    private boolean isItFirstclick = true;
+    private boolean isItFirstclick = true;   
   
   public void actionPerformed(ActionEvent e){          
       
